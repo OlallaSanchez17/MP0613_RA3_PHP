@@ -140,7 +140,6 @@ class BankAccount implements BankAccountInterface
         if ($this->isClosed()) {
             throw new BankAccountException("Cannot perform transaction: account is closed.");
         }
-
         $this->balance = $transaction->applyTransaction($this);
     }
     public function applyOverdraft(OverdraftInterface $overdraft): void

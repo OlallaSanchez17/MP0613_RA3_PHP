@@ -128,4 +128,8 @@ try {
 } catch (BankAccountException $e) {
     pl($e->getMessage());
 }
+    pl('My balance: ' . $bankAccount2->getBalance());
+    // close account
+    $bankAccount2->close(); 
+    pl("My account is now closed.\n");
 

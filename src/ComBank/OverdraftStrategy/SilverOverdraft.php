@@ -15,9 +15,9 @@ class SilverOverdraft implements OverdraftInterface
 {
     private float $overdraftLimit;
 
-    public function __construct(float $overdraftLimit = -100.0)
+    public function __construct(float $overdraftLimit = 100.0) 
     {
-        $this->overdraftLimit = $overdraftLimit < 0 ? $overdraftLimit : -abs($overdraftLimit);
+        $this->overdraftLimit = $overdraftLimit; 
     }
 
     public function getOverdraftFundsAmount(): float
@@ -30,14 +30,14 @@ class SilverOverdraft implements OverdraftInterface
         $newBalance = $currentBalance - $requestedAmount;
         return $newBalance >= $this->overdraftLimit;
     }
-public function apply(float $currentBalance, float $amountToWithdraw): float|bool
+    public function apply(float $currentBalance, float $amountToWithdraw): float|bool
     {
         $newBalance = $currentBalance - $amountToWithdraw;
         
-        $maxOverdraft = $this->overdraftLimit * -1; 
+        $maxOverdraft = $this->overdraftLimit * -1;
 
         if ($newBalance < $maxOverdraft) {
-            return false; 
+            return false;
         }
         
         return $newBalance;

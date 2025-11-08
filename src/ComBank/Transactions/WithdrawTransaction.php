@@ -28,7 +28,7 @@ class WithdrawTransaction implements BankTransactionInterface
 
         $this->amount = $amount;
         $this->transactionId = uniqid('txn_', true);
-        $this->timestamp = new \DateTimeImmutable(); // Inicializar el timestamp
+        $this->timestamp = new \DateTimeImmutable(); 
     }
 
     /**
