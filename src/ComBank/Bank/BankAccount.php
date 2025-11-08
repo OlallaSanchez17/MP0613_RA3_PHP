@@ -27,14 +27,7 @@ class BankAccount implements BankAccountInterface
     private bool $closed;
     private ?OverdraftInterface $overdraft;
 
-    public function __construct(        
-        string $name,
-        float $balance,
-        bool $allowOverdraft = false,
-        bool $closed = false,
-        string $status = self::STATUS_OPEN,
-        ?OverdraftInterface $overdraft = null
-    ) {
+    public function __construct(string $name, float $balance, bool $allowOverdraft = false, bool $closed = false, string $status = self::STATUS_OPEN, ?OverdraftInterface $overdraft = null) {
         $this->name = $name;
         $this->balance = $balance;
         $this->allowOverdraft = $allowOverdraft;
@@ -83,14 +76,14 @@ class BankAccount implements BankAccountInterface
     public function closeAccount(): void
     {
         if ($this->isClosed()) {
-            throw new BankAccountException("The account is already closed.");
+            throw new BankAccountException("Account is already closed.");
         }
         $this->status = self::STATUS_CLOSED;
     }
     public function reopenAccount(): void
     {
         if ($this->isOpen()) {
-            throw new BankAccountException("The account is now open.");
+            throw new BankAccountException("The account is already open.");
         }
 
         $this->status = self::STATUS_OPEN;

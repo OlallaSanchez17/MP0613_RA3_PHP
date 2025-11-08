@@ -11,37 +11,38 @@ use ComBank\Transactions\WithdrawTransaction;
 class BankAccountTest extends TestCase
 {
 
+
+
     public function testInitialBalanceIsSetCorrectly(): void
     {
-        $account = new BankAccount(100.0);
+        $account = new BankAccount(name: 'TestAccount1', balance: 100.0); 
         $this->assertEqualsWithDelta(100.0, $account->getBalance(), 0.001);
     }
 
     public function testDepositTransaction(): void
-    {
-        $bankAccount = new BankAccount(200.0);
+    {   
+        $bankAccount = new BankAccount(name: 'TestAccount2', balance: 200.0);
         $bankAccount->transaction(new DepositTransaction(30.0));
         $this->assertEqualsWithDelta(230.0, $bankAccount->getBalance(), 0.001);
     }
 
     public function testWithdrawTransaction(): void
     {
-        $bankAccount = new BankAccount(200.0);
+        $bankAccount = new BankAccount(name: 'TestAccount3', balance: 200.0);
         $bankAccount->transaction(new WithdrawTransaction(150.0));
         $this->assertEqualsWithDelta(50.0, $bankAccount->getBalance(), 0.001);
     }
-
     public function testCannotReopenOpenAccount(): void
     {
         $this->expectException(BankAccountException::class);
 
-        $account = new BankAccount(100.0);
-        $account->reopenAccount();  
+        $account = new BankAccount(name: 'TestAccount4', balance: 100.0);
+        $account->reopenAccount(); 
     }
 
     public function testCanCloseAndReopenAccount(): void
     {
-        $account = new BankAccount(100.0);
+        $account = new BankAccount(name: 'TestAccount5', balance: 100.0);
         $account->closeAccount();
         $this->assertFalse($account->isOpen());
 
@@ -51,7 +52,7 @@ class BankAccountTest extends TestCase
 
     public function testWithdrawWithOverdraft(): void
     {
-        $bankAccount = new BankAccount(250.0);
+        $bankAccount = new BankAccount(name: 'TestAccount6', balance: 250.0);
         $bankAccount->applyOverdraft(new SilverOverdraft());
         $bankAccount->transaction(new WithdrawTransaction(300.0));
 
@@ -60,10 +61,10 @@ class BankAccountTest extends TestCase
 
     public function testFailedTransactionWithOverdraft(): void
     {
-        $this->expectException(FailedTransactionException::class);        
+        $this->expectException(FailedTransactionException::class);
 
-        $bankAccount = new BankAccount(100.0);
-        $bankAccount->applyOverdraft(new SilverOverdraft());        
+        $bankAccount = new BankAccount(name: 'TestAccount7', balance: 100.0);
+        $bankAccount->applyOverdraft(new SilverOverdraft());
         $bankAccount->transaction(new WithdrawTransaction(201.0));
     }
 
@@ -71,7 +72,7 @@ class BankAccountTest extends TestCase
     {
         $this->expectException(BankAccountException::class);
 
-        $bankAccount = new BankAccount(100.0);
+        $bankAccount = new BankAccount(name: 'TestAccount8', balance: 100.0);
         $bankAccount->closeAccount();
 
         $bankAccount->transaction(new DepositTransaction(50.0)); 

@@ -22,8 +22,8 @@ class FailedTransactionException extends BaseExceptions
         \Throwable $previous = null
     ) {
         $this->transaction = $transaction;
-        parent::__construct($message, $code ?? $this->errorCode, $previous);
-    }
+    parent::__construct($message, $code ?? $this->errorCode, $previous);    
+}
 
     public function getTransaction(): ?BankTransactionInterface
     {

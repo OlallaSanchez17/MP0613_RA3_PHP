@@ -8,6 +8,7 @@
  */
 
 use ComBank\Bank\Contracts\BankAccountInterface;
+use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
 use ComBank\Exceptions\BankAccountException;
 
@@ -31,12 +32,7 @@ class WithdrawTransaction implements BankTransactionInterface
         $this->timestamp = new \DateTimeImmutable(); 
     }
 
-    /**
-     * Contiene TODA la lógica de retiro, reemplazando BankAccount::debit().
-     * @param BankAccountInterface $account
-     * @return float El nuevo saldo.
-     * @throws BankAccountException
-     */
+
     public function applyTransaction(BankAccountInterface $account): float
     {
         if ($account->isClosed()) {
@@ -57,10 +53,9 @@ class WithdrawTransaction implements BankTransactionInterface
             $newBalance = $overdraft->apply($currentBalance, $amount);
             
             if ($newBalance === false) {
-                throw new BankAccountException("Overdraft limit exceeded.");
+                throw new FailedTransactionException("Overdraft limit exceeded.");
             }
 
-            
             return $newBalance;
 
         } catch (BankAccountException $e) {

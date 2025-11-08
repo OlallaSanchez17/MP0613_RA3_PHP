@@ -30,4 +30,5 @@ interface BankAccountInterface
     public function setBalance(float $balance): void;
 
     public function transaction(BankTransactionInterface $transaction): void;
+    
 }
