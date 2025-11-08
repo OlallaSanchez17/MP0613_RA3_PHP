@@ -1,5 +1,6 @@
 <?php namespace ComBank\Exceptions;
 
+use ComBank\Transactions\Contracts\BankTransactionInterface;
 /**
  * Created by VS Code.
  * User: JPortugal

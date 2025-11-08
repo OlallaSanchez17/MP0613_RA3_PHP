@@ -59,6 +59,7 @@ class WithdrawTransaction implements BankTransactionInterface
             if ($newBalance === false) {
                 throw new BankAccountException("Overdraft limit exceeded.");
             }
+
             
             return $newBalance;
 
