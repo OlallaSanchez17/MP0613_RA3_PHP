@@ -8,7 +8,9 @@
  */
 
 use ComBank\Bank\Contracts\BankAccountInterface;
+use ComBank\Exceptions\ZeroAmountException;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
+use ComBank\Exceptions\FailedTransactionException;
 
 class DepositTransaction implements BankTransactionInterface
 {
@@ -16,26 +18,25 @@ class DepositTransaction implements BankTransactionInterface
 
     public function __construct(float $amount)
     {
+        if ($amount <= 0) {
+        throw new ZeroAmountException("Invalid amount: $amount");
+        }
         $this->amount = $amount;
     }
 
     public function applyTransaction(BankAccountInterface $account): float
     {
-            return $account->getBalance() + $this->amount;
+        return $account->getBalance() + $this->amount;
     }
-        public function getAmount(): float
+    public function getAmount(): float
     {
         return $this->amount;
     }
 
-        public function getTransactionInfo(): string 
+    public function getTransactionInfo(): string 
     {
-        return sprintf(
-            "DEPOSIT | ID: %s | Amount: $%.2f | Date: %s",
-            $this->transactionId,
-            $this->amount,
-            $this->timestamp->format('Y-m-d H:i:s')
-        );
+        return 'DEPOSIT_TRANSACTION';
+
     }
 
 }

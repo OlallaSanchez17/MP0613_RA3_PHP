@@ -27,9 +27,7 @@ try {
     $noOverdraft = new NoOverdraft();
 
     $bankAccount1 = new BankAccount(
-        name: "bankAccount1",
-        balance: 400.0,
-        allowOverdraft: false,
+        balance: 400.00,
         status: BankAccount::STATUS_OPEN,
         overdraft: $noOverdraft 
     );
@@ -72,9 +70,7 @@ pl('--------- [Start testing bank account #2, Silver overdraft 200.0 funds] ----
     $silverOverdraft = new SilverOverdraft(overdraftLimit: 100.0);
 
     $bankAccount2 = new BankAccount(
-        name: "bankAccount2",
         balance: 200.0,
-        allowOverdraft: true,
         status: BankAccount::STATUS_OPEN,
         overdraft: $silverOverdraft 
     );

@@ -7,6 +7,7 @@
  * Time: 1:24 PM
  */
 
+use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Exceptions\InvalidArgsException;
 use ComBank\Exceptions\ZeroAmountException;
 use ComBank\Support\Traits\AmountValidationTrait;
@@ -17,6 +18,9 @@ abstract class BaseTransaction
 
     public function __construct(float $amount)
     {
+        if($amount<=0){
+            throw new ZeroAmountException($e->getMessage());
+        }
         $this->amount = $amount;
     }
 

@@ -20,20 +20,20 @@ class BankAccount implements BankAccountInterface
     public const STATUS_OPEN = "OPEN";
     public const STATUS_CLOSED = "CLOSED";
 
-    private string $name;
+
     private float $balance;
     private string $status;
-    private bool $allowOverdraft;  
-    private bool $closed;
+    private bool $allowOverdraft;
+
     private ?OverdraftInterface $overdraft;
 
-    public function __construct(string $name, float $balance, bool $allowOverdraft = false, bool $closed = false, string $status = self::STATUS_OPEN, ?OverdraftInterface $overdraft = null) {
-        $this->name = $name;
+    public function __construct(float $balance, string $status = self::STATUS_OPEN, ?OverdraftInterface $overdraft = null, bool $allowOverdraft = false
+
+) {
         $this->balance = $balance;
-        $this->allowOverdraft = $allowOverdraft;
-        $this->closed = $closed;
         $this->status = $status;
         $this->overdraft = $overdraft;    
+        $this->allowOverdraft = $allowOverdraft;
     }
 
     public function disableOverdraft(): void
@@ -87,7 +87,6 @@ class BankAccount implements BankAccountInterface
         }
 
         $this->status = self::STATUS_OPEN;
-        $this->closed = false;
     }
 
     public function deposit(float $amount): void
@@ -103,7 +102,7 @@ class BankAccount implements BankAccountInterface
 
     public function debit(float $amount): void
     {
-        if ($this->closed) {
+        if ($this->isClosed()) {
             throw new BankAccountException("Cannot withdraw: account is closed.");
         }
         if ($amount <= 0) {
@@ -122,6 +121,8 @@ class BankAccount implements BankAccountInterface
                 }
                 $this->balance = $newBalance;
                 return;
+            } else {
+                throw new BankAccountException("No overdraft strategy applied.");
             }
         }
 

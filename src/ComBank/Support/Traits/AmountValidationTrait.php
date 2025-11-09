@@ -18,7 +18,7 @@ trait AmountValidationTrait
      * @throws ZeroAmountException
      */
     public function validateAmount(float $amount):void
-{
+    {
         if ($amount === 0.0) {
             throw new ZeroAmountException("Amount cannot be zero.");
         }
@@ -27,4 +27,10 @@ trait AmountValidationTrait
             throw new InvalidArgsException("Amount must be a positive value.");
         }
     }
+    public function __construct(float $amount)
+    {
+    $this->validateAmount($amount); 
+    
+    $this->amount = $amount;
+}
 }

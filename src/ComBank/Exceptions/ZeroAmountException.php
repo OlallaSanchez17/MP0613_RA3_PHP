@@ -7,7 +7,9 @@
  * Time: 11:38 AM
  */
 
-class ZeroAmountException extends BaseExceptions
+Use ComBank\Exceptions\BaseExceptions;
+
+class ZeroAmountException extends BaseExceptions 
 {
     protected $errorCode = 101;
     protected $errorLabel = 'ZeroAmountException';

@@ -11,9 +11,6 @@ use ComBank\Bank\Contracts\BankAccountInterface;
 use ComBank\Exceptions\FailedTransactionException;
 use ComBank\Transactions\Contracts\BankTransactionInterface;
 use ComBank\Exceptions\BankAccountException;
-
-
-
 class WithdrawTransaction implements BankTransactionInterface  
 {
     private float $amount;

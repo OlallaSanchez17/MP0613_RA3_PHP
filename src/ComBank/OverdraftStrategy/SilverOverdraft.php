@@ -13,9 +13,9 @@ use ComBank\OverdraftStrategy\Contracts\OverdraftInterface;
  * */
 class SilverOverdraft implements OverdraftInterface
 {
-    private float $overdraftLimit;
+    protected float $overdraftLimit;
 
-    public function __construct(float $overdraftLimit = 100.0) 
+    public function __construct(float $overdraftLimit = 100.00) 
     {
         $this->overdraftLimit = $overdraftLimit; 
     }
@@ -33,13 +33,11 @@ class SilverOverdraft implements OverdraftInterface
     public function apply(float $currentBalance, float $amountToWithdraw): float|bool
     {
         $newBalance = $currentBalance - $amountToWithdraw;
-        
         $maxOverdraft = $this->overdraftLimit * -1;
 
         if ($newBalance < $maxOverdraft) {
             return false;
         }
-        
         return $newBalance;
     }
     public function getLimit(): float

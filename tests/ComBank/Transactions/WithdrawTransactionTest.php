@@ -78,9 +78,9 @@ class WithdrawTransactionTest extends TestCase
     public function invalidAmountProvider()
     {
         return [
-            [-100],   // Negative value
-            [-0.01],  // Small negative value
-            [0]       // Zero amount
+            [-100],
+            [0],
+            [-50.5]
         ];
     }   
 }
